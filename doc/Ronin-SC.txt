@@ -1,0 +1,19 @@
+RONIN-SC PROJECT UNIT
+────────────────────────────
+Model:        Ronin-SC
+Serial:       _____________
+Firmware:     _____________
+Battery:      BG18
+Battery date: _____________
+App:          _____________
+
+Initial tests:
+☐ Powers on
+☐ Bluetooth connects
+☐ Pan works
+☐ Tilt works
+☐ Roll works
+☐ Recenter works
+☐ Motors normal
+☐ Axis locks OK
+☐ USB-C works

@@ -1,0 +1,17 @@
+                ┌────────────────────────┐
+                │       ENCLOSURE        │
+                │                        │
+ USB-C ─────────┤  ESP32 DevKit          │
+                │       │                │
+                │       ▼                │
+                │  Breakout / terminal   │
+                │       │                │
+                │       ▼                │
+                │  SBUS interface        │
+                └───────┬────────────────┘
+                        │
+                        │ 3-wire cable
+                        │
+                  ┌─────▼─────┐
+                  │  Ronin-SC │
+                  └───────────┘

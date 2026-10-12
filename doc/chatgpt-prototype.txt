@@ -1,0 +1,9 @@
+ESP32
+ │
+ ├── GPIO → SBUS interface
+ │
+ ├── GND ────────────────┐
+ │                       │
+ └── 3.3V                │
+                         ▼
+                  Ronin-SC connector

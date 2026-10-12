@@ -40,6 +40,13 @@ const int sbusMIN         = 352;    // Min usable for analog val and switch val
 const int sbusMAX         = 1696;   // Max usable for analog val and switch val
 const int sbusWAIT        = 10;     // Frame timing delay in msecs
 
+const int panCHANNEL      = 1;     // Define which channel is pan
+const int tiltCHANNEL     = 2;     // Define which channel is tilt
+const int panMIN          = 500;   // Adjust these values based on your gimbal
+const int panMAX          = 1500;
+const int tiltMIN         = 500;
+const int tiltMAX         = 1500;
+
 // Function to send logs throw WebSocket with timestamp, visible in webpage/log
 void sendLog(String message) {
     // Get current time
@@ -441,6 +448,16 @@ void handleWebSocketMessage(char* msg) {
     if (channel < 0 || channel > 16) {
         sendLog("Channel number out of allowed range!");
         return;
+    }
+
+   // Channel-specific limits
+   if (channel == panCHANNEL && (value < panMIN || value > panMAX)) {
+      sendLog("Pan value out of limits!");
+      return;
+    }
+    if (channel == tiltCHANNEL && (value < tiltMIN || value > tiltMAX)) {
+      sendLog("Tilt value out of limits!");
+      return;
     }
 
     // print in logs received value
