@@ -1,5 +1,5 @@
-#include <ESP8266WiFi.h>
-#include <ESP8266WebServer.h>
+#include <WiFi.h>
+#include <WebServer.h>
 #include <DNSServer.h>
 #include <EEPROM.h>
 #include <WebSocketsServer.h>
@@ -11,7 +11,7 @@ const byte DNS_PORT = 53;
 IPAddress apIP(192, 168, 4, 1);
 
 // Server and DNS
-ESP8266WebServer webServer(80);
+WebServer webServer(80);
 DNSServer dnsServer;
 
 // WebSockets Server
