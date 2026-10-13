@@ -1,0 +1,51 @@
+# Build Arduino sketch on ubuntu-latest using arduino-cli
+name: DJI Ronin Remote Controller ESP32/ESP8266 — Arduino Build
+
+on:
+  push:
+    # branches: [ main ]
+  pull_request:
+    # branches: [ main ]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Cache Arduino packages (~/.arduino15)
+        uses: actions/cache@v5
+        with:
+          path: ~/.arduino15
+          key: ${{ runner.os }}-arduino-${{ hashFiles('**/*.ino', '**/library.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-arduino-
+
+      - name: Setup Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+
+      - name: Install ESP32 core
+        run: |
+          # Install the esp32 core (adjust core id if you need a specific board)
+          arduino-cli core install esp32:esp32
+
+      - name: (Optional) Install libraries from Library Manager
+        run: |
+          # Uncomment/adjust lines below if you want to install specific libs from the Library Manager
+          # arduino-cli lib install "WebSockets"
+          echo "Skipping explicit library installs (repo includes libs under Code/Libraries)"
+
+      - name: Compile sketch (ESP32 generic)
+        run: |
+          # Run our build script without upload
+          ./build.sh noupload
+
+      # - name: Upload build artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: firmware
+      #     path: build
+
