@@ -41,7 +41,8 @@ jobs:
       - name: Compile sketch (ESP32 generic)
         run: |
           # Compile the sketch located in Code/ (sketch folder must contain the .ino)
-          arduino-cli compile --fqbn esp32:esp32:esp32 Ronin_Remote_Controller_ESP32 --libraries Libraries --log
+          # arduino-cli compile --fqbn esp32:esp32:esp32 Ronin_Remote_Controller_ESP32 --libraries Libraries --log
+          ./build.sh
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
