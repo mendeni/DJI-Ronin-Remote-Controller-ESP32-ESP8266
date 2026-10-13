@@ -1,4 +1,6 @@
-#!/bin/sh -x -e
+#!/bin/sh -x
+
+set -eu
 
 cd Code
 
