@@ -1,0 +1,57 @@
+# Build Arduino sketch on ubuntu-latest using arduino-cli
+name: DJI Ronin Remote Controller ESP32/ESP8266 — Arduino Build
+
+on:
+  push:
+    # branches: [ main ]
+  pull_request:
+    # branches: [ main ]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache Arduino packages (~/.arduino15)
+        uses: actions/cache@v4
+        with:
+          path: ~/.arduino15
+          key: ${{ runner.os }}-arduino-${{ hashFiles('**/*.ino', '**/library.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-arduino-
+
+      - name: Setup Arduino CLI
+        uses: arduino/setup-arduino-cli@v1
+        with:
+          version: latest
+
+      - name: Configure board manager and install ESP8266 core
+        run: |
+          # Add ESP8266 board manager URL and update index
+          arduino-cli core update-index --additional-urls https://arduino.esp8266.com/stable/package_esp8266com_index.json
+          # Install the esp8266 core (adjust core id if you need a specific board)
+          arduino-cli core install esp8266:esp8266
+
+      - name: (Optional) Install libraries from Library Manager
+        run: |
+          # Uncomment/adjust lines below if you want to install specific libs from the Library Manager
+          # arduino-cli lib install "WebSockets"
+          # arduino-cli lib install "ESP8266WiFi"
+          # arduino-cli lib install "ESP8266WebServer"
+          echo "Skipping explicit library installs (repo likely includes libs under Code/Libraries)"
+
+      - name: Compile sketch (ESP8266 generic)
+        run: |
+          # Compile the sketch located in Code/ (sketch folder must contain the .ino)
+          arduino-cli compile --fqbn esp32:esp32:esp32 Ronin_Remote_Controller_ESP32 --libraries Libraries --log
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware
+          path: build
+
