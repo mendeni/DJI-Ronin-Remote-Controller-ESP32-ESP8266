@@ -42,10 +42,10 @@ const int sbusWAIT        = 10;     // Frame timing delay in msecs
 
 const int panCHANNEL      = 1;     // Define which channel is pan
 const int tiltCHANNEL     = 2;     // Define which channel is tilt
-const int panMIN          = 500;   // Adjust these values based on your gimbal
-const int panMAX          = 1500;
-const int tiltMIN         = 500;
-const int tiltMAX         = 1500;
+const int panMIN          = 352;   // Adjust these values based on your gimbal
+const int panMAX          = 1696;
+const int tiltMIN         = 352;
+const int tiltMAX         = 1696;
 
 // Function to send logs throw WebSocket with timestamp, visible in webpage/log
 void sendLog(String message) {
